@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prompt-cache-reference"
+version = "0.1.0"
+description = "Production-ready prompt caching reference implementation for LLM workloads"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+redis = ["redis>=5.0"]
+disk = ["aiofiles>=23.2.1"]
+fast = ["orjson>=3.10"]
+semantic = ["scikit-learn>=1.5"]
+service = ["fastapi>=0.115", "uvicorn[standard]>=0.30"]
+dev = [
+    "fakeredis>=2.23",
+    "hypothesis>=6.112",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-mock>=3.14",
+]
+
+[project.scripts]
+prompt-cache = "prompt_cache.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
